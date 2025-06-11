@@ -1,0 +1,15 @@
+doctrine_mongodb:
+    connections:
+        default:
+            server: "%env(MONGODB_URL)%"
+    default_database: "easyloc"
+    document_managers:
+        default:
+            auto_mapping: true
+            mappings:
+                App:
+                    type: attribute
+                    dir: "%kernel.project_dir%/src/Document"
+                    is_bundle: false
+                    prefix: 'App\Document'
+                    alias: App

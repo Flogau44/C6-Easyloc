@@ -14,16 +14,31 @@ class MySQLDatabaseManager implements SQLDatabaseManagerInterface
 {
     private EntityManagerInterface $em;
 
+    /**
+     * Constructeur de MySQLDatabaseManager
+     * Injecte l'EntityManager pour gérer la connexion et les requêtes MySQL.
+     */
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
 
+    /**
+     * Récupère un contrat en fonction de son identifiant.
+     *
+     * @param int $id Identifiant du contrat.
+     * @return Contract|null Retourne l'objet Contract ou null si non trouvé.
+     */
     public function getContractById(int $id): ?Contract
     {
         return $this->em->getRepository(Contract::class)->find($id);
     }
 
+    /**
+     * Crée un nouveau contrat et l'enregistre dans la base MySQL.
+     *
+     * @param array $data Données du contrat (date début/fin, prix, client, véhicule).
+     */
     public function createContract(array $data): void
     {
         $contract = new Contract();
@@ -38,6 +53,12 @@ class MySQLDatabaseManager implements SQLDatabaseManagerInterface
         $this->em->flush();
     }
 
+    /**
+     * Met à jour un contrat existant.
+     *
+     * @param int $id Identifiant du contrat.
+     * @param array $data Nouvelles données à enregistrer.
+     */
     public function updateContract(int $id, array $data): void
     {
         $contract = $this->em->getRepository(Contract::class)->find($id);
@@ -47,6 +68,11 @@ class MySQLDatabaseManager implements SQLDatabaseManagerInterface
         $this->em->flush();
     }
 
+    /**
+     * Supprime un contrat en fonction de son identifiant.
+     *
+     * @param int $id Identifiant du contrat.
+     */
     public function deleteContract(int $id): void
     {
         $contract = $this->em->getRepository(Contract::class)->find($id);
@@ -56,11 +82,22 @@ class MySQLDatabaseManager implements SQLDatabaseManagerInterface
         $this->em->flush();
     }
 
+    /**
+     * Récupère un paiement en fonction de son identifiant.
+     *
+     * @param int $id Identifiant du paiement.
+     * @return Billing|null Retourne l'objet Billing ou null si non trouvé.
+     */
     public function getBillingById(int $id): ?Billing
     {
         return $this->em->getRepository(Billing::class)->find($id);
     }
 
+    /**
+     * Crée un nouveau paiement et l'associe à un contrat existant.
+     *
+     * @param array $data Données du paiement (montant, contrat associé).
+     */
     public function createBilling(array $data): void
     {
         $contract = $this->em->getRepository(Contract::class)->find($data['contract_id']);
@@ -74,6 +111,12 @@ class MySQLDatabaseManager implements SQLDatabaseManagerInterface
         $this->em->flush();
     }
 
+    /**
+     * Met à jour un paiement existant.
+     *
+     * @param int $id Identifiant du paiement.
+     * @param array $data Nouvelles données du paiement.
+     */
     public function updateBilling(int $id, array $data): void
     {
         $billing = $this->em->getRepository(Billing::class)->find($id);
@@ -83,6 +126,11 @@ class MySQLDatabaseManager implements SQLDatabaseManagerInterface
         $this->em->flush();
     }
 
+    /**
+     * Supprime un paiement en fonction de son identifiant.
+     *
+     * @param int $id Identifiant du paiement.
+     */
     public function deleteBilling(int $id): void
     {
         $billing = $this->em->getRepository(Billing::class)->find($id);

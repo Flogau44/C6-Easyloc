@@ -22,3 +22,9 @@ services:
         resource: "../src/Repository"
         autowire: true
         autoconfigure: true
+
+    App\Service\MySQLDatabaseManager:
+        public: true
+
+    App\Service\MongoDBDatabaseManager:
+        public: true

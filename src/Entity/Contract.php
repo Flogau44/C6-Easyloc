@@ -22,7 +22,7 @@ class Contract
     #[ORM\Column]
     private ?\DateTime $loc_end_datetime = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: "datetime", nullable: true)]
     private ?\DateTime $returning_datetime = null;
 
     #[ORM\Column(length: 255)]

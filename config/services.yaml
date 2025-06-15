@@ -28,3 +28,6 @@ services:
 
     App\Service\MongoDBDatabaseManager:
         public: true
+
+    App\Controller\ApiController:
+        public: true

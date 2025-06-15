@@ -3,22 +3,16 @@
 namespace App\Repository;
 
 use App\Document\Customer;
-use Doctrine\Bundle\MongoDBBundle\Repository\ServiceDocumentRepository;
-use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
 
-class CustomerRepository extends ServiceDocumentRepository
+/**
+ * Repository CustomerRepository
+ * Gère l'accès aux clients.
+ */
+class CustomerRepository extends DocumentRepository
 {
-    public function __construct(DocumentManager $dm)
+    public function findCustomerByName(string $firstName, string $lastName): ?Customer
     {
-        parent::__construct($dm, Customer::class);
-    }
-
-    public function findByName(string $firstName, string $secondName): ?Customer
-    {
-        return $this->createQueryBuilder()
-            ->field('firstName')->equals($firstName)
-            ->field('secondName')->equals($secondName)
-            ->getQuery()
-            ->getSingleResult();
+        return $this->findOneBy(['firstName' => $firstName, 'lastName' => $lastName]);
     }
 }

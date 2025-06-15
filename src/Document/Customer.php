@@ -2,29 +2,47 @@
 
 namespace App\Document;
 
-use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
-#[MongoDB\Document]
+/**
+ * Document Customer
+ * Représente un client dans la base MongoDB.
+ */
+#[ODM\Document]
 class Customer
 {
-    #[MongoDB\Id(strategy: "UUID")]
+    #[ODM\Id]
     private string $uid;
 
-    #[MongoDB\Field(type: "string")]
+    #[ODM\Field(type: "string")]
     private string $firstName;
 
-    #[MongoDB\Field(type: "string")]
-    private string $secondName;
+    #[ODM\Field(type: "string")]
+    private string $lastName;
 
-    #[MongoDB\Field(type: "string")]
+    #[ODM\Field(type: "string")]
     private string $address;
 
-    #[MongoDB\Field(type: "string")]
+    #[ODM\Field(type: "string")]
     private string $permitNumber;
 
-    public function getUid(): string { return $this->uid; }
-    public function getFirstName(): string { return $this->firstName; }
-    public function getSecondName(): string { return $this->secondName; }
-    public function getAddress(): string { return $this->address; }
-    public function getPermitNumber(): string { return $this->permitNumber; }
+    public function setFirstName(string $firstName): void
+    {
+        $this->firstName = $firstName;
+    }
+
+    public function setLastName(string $lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+    public function setAddress(string $address): void
+    {
+        $this->address = $address;
+    }
+
+    public function setPermitNumber(string $permitNumber): void
+    {
+        $this->permitNumber = $permitNumber;
+    }
 }
